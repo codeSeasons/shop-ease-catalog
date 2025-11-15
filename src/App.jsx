@@ -27,10 +27,12 @@ const products = [
 ];
 
 function App() {
+  //store state of category filter
   const [filter, setFilter] = useState('');
 
   const categories = ['All', 'Electronics', 'Home Appliances'];
 
+  //filter products based on selected category
   const filteredProducts =
     filter && filter !== 'All'
       ? products.filter((product) => product.category === filter)
@@ -40,18 +42,21 @@ function App() {
     <div className="app-container">
       <h1 className="app-title">ShopEase Product Catalog</h1>
 
+      {/* render category filter buttons */}
       <div className="filter-buttons">
         {categories.map((category) => (
           <button
             key={category}
+            //highlight active filter button
             className={filter === category || (category === 'All' && !filter) ? 'active' : ''}
+            //update filter state on button click
             onClick={() => setFilter(category === 'All' ? '' : category)}
           >
             {category}
           </button>
         ))}
       </div>
-
+      {/* render filtered product list */}
       <div className="product-list">
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
